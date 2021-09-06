@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Ultimate Exam Planner</title>
+
+    <script src="/p5.js"></script>
+    <script src="/p5.play.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script>
+        firebase.initializeApp({
+            apiKey: "AIzaSyB0pnO5b0Kk4ZAvJoXxcOD2qadCIAIjh7Q",
+            authDomain: "exam-planner---build-up.firebaseapp.com",
+            projectId: "exam-planner---build-up",
+            storageBucket: "exam-planner---build-up.appspot.com",
+            messagingSenderId: "855254863426",
+            appId: "1:855254863426:web:b7ffa5553ce739428a67db",
+            measurementId: "G-TD0JR7V8BG"
+        });
+        var database = firebase.database();
+        var auth = firebase.auth();
+
+    </script>
+
+    <script src="loading.js"></script>
+    <script src="authentication.js"></script>
+</head>
+
+</html>

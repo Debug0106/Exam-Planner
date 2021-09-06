@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit your plan</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <script src="p5.js"></script>
+    <script src="p5.play.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script>
+        firebase.initializeApp({
+            apiKey: "AIzaSyB0pnO5b0Kk4ZAvJoXxcOD2qadCIAIjh7Q",
+            authDomain: "exam-planner---build-up.firebaseapp.com",
+            projectId: "exam-planner---build-up",
+            storageBucket: "exam-planner---build-up.appspot.com",
+            messagingSenderId: "855254863426",
+            appId: "1:855254863426:web:b7ffa5553ce739428a67db",
+            measurementId: "G-TD0JR7V8BG"
+        });
+        var database = firebase.database();
+        var auth = firebase.auth();
+
+        showWelcome();
+        showHTMLAnimation();
+
+        function showWelcome() {
+            if (auth.currentUser) {
+                database.ref("Users/" + auth.currentUser.uid + "/name").get().then((data) => {
+                    if (data.exists()) {
+                        userName = data.val();
+
+                        document.getElementById("my-name").innerText = "Welcome, " + userName;
+                        currentFormInfo.hidden = false;
+                        createSubjectSelector();
+                    }
+                });
+            }
+        }
+
+        function showHTMLAnimation() {
+            setTimeout(function () {
+                document.body.style.transition = ".6s";
+                document.body.style.transform = "scale(1.6)";
+            }, 100);
+        }
+
+        function saveData() {
+            var dataSaved;
+            var fileName = prompt("Enter your file name");
+            database.ref("Users/" + auth.currentUser.uid + "plans/" + fileName).update({
+                subjects: choseSubjects
+            }).then(() => {
+                dataSaved = true;
+            });
+        }
+
+        window.onbeforeunload = function (e) {
+            if (!dataSaved) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <table id="edit-plan">
+        <thead>
+            <th>
+                Subject
+            </th>
+            <th>
+                Dfficulty
+            </th>
+            <th>
+                No of chapters
+            </th>
+            <th>
+                Time for each chapter
+            </th>
+            <th>
+                Total No. of hours required
+            </th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    English
+                </td>
+                <td>
+                    Normal
+                </td>
+                <td>
+                    8
+                </td>
+                <td>
+                    4
+                </td>
+                <td>
+                    32
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    हिन्दी
+                </td>
+                <td>
+                    Difficult
+                </td>
+                <td>
+                    10
+                </td>
+                <td>
+                    4
+                </td>
+                <td>
+                    40
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button id="save-btn" onclick="saveData()">
+        <a href="index.html">
+            <div class="link-text">
+                Save
+            </div>
+        </a>
+    </button>
+</body>
+
+</html>
